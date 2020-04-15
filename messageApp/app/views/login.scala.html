@@ -1,0 +1,33 @@
+@import models.Info
+@import play.mvc.Http.Request
+@import helper._
+
+    @(loginForm : Form[Info])(implicit request: Request) 
+
+    @layout("Form Page"){
+        <div class="centrer">
+            <h1>LOGIN PAGE </h1>
+        </div>
+
+        @helper.form(action = routes.HomeController.authenticate()) {
+        @helper.CSRF.formField
+        @helper.inputText(loginForm("name"))
+        @helper.inputPassword(loginForm("password"))
+
+        <input type="submit" class="btn-primary" value="send">
+
+        }
+
+        <div id="forget">
+            <a href="@routes.HomeController.resetPage()">Forgot password ?</a>
+        </div>
+
+        @manageErrors()
+
+    }{
+        @accueil()
+    }
+
+
+
+

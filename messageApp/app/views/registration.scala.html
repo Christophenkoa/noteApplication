@@ -1,0 +1,33 @@
+@import models.User
+@import play.mvc.Http.Request
+@import helper._
+
+    @(registrationForm : Form[User])(implicit request: Request) 
+
+    
+    @layout("Form Page"){
+
+        <div class="centrer">
+            <h1>REGISTRATION PAGE</h1>
+        </div>
+
+        @helper.form(action = routes.HomeController.registration()) {
+            @helper.CSRF.formField
+            @helper.inputText(registrationForm("userName"),
+                                            '_label -> "Name")
+
+            @helper.inputPassword(registrationForm("userPassword"),
+                                            '_label -> "Password")
+
+            @helper.inputText(registrationForm("userEmail"),
+                                            '_label -> "Email")
+    
+            <input type="submit" class="btn-primary" value="send">
+    
+            }
+        
+            @manageErrors()
+
+    }{
+        @accueil()
+    }

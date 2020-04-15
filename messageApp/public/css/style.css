@@ -1,0 +1,496 @@
+/* general selector */
+
+*{
+    box-sizing: border-box;
+}
+
+/*  layout style  */
+
+/* logo + nav*/
+header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.container{
+    width: 70%;
+    margin: auto;
+}
+
+/*navigation zone*/
+nav {
+    font-size : 1.1em;
+    margin-top: 15px;
+}
+
+body {
+    color: white;
+    background-color:#242582;
+    margin: auto;
+}
+
+footer {
+    margin-top: 128px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-align: center;
+    background-color:  #1D1D1D;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-icons a {
+    margin: 2px;
+}
+
+#footer-center div {
+    display: inline-block;
+    margin: 5px;
+}
+
+#footer-left{
+    padding-top: 30px;
+    width: 250px;
+}
+
+#logo {
+    height: 120px;
+    margin-top: 0px;
+}
+
+a {
+    text-decoration: none;
+    color:white;
+}
+
+ul{
+    padding: 0;
+    margin-top: 5px;
+}
+
+li {
+    list-style-type: none;
+    display: inline;
+    margin:10px;
+}
+
+li :hover{
+    background-color: mediumblue;
+    padding:6px; 
+    border-radius: 3px;
+}
+
+
+/*form*/
+
+input[type=text] , input[type=password]{
+    width: 80%;
+    border : 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding : 8px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+textarea {
+    border : 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding : 8px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+input[type=submit] {
+    width: 7%;
+    border : 2px solid blue;
+    margin-left: 17.9%;
+    outline: none;
+    padding : 8px;
+    box-sizing: border-box;
+    transition: .3s;
+    text-transform: uppercase;
+    font-family: Georgia, 'Times New Roman', Times, serif ;
+    font-weight: normal;
+    border-radius: 5px;
+    box-shadow: 0 2px #999;
+}
+
+input[type=submit]:hover {
+    background-color: mediumblue;
+}
+
+input[type=submit] :active {
+    transition: 0.7s;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    background-color: #3e8e41
+}
+
+label {
+    margin: 5px;
+    display: block;
+}
+
+/*user form element*/
+
+    dl{
+        margin: 30px 0px 30px 0px;
+        padding-left: 18%;
+
+    }
+
+    dd{
+        margin-left: 0px;
+    }
+
+
+
+input[type=text]:focus {
+    border-color: dodgerblue;
+    box-shadow: 0 0 8px 0 dodgerblue;
+}
+
+textarea :hover{
+    border-color: dodgerblue;
+    box-shadow: 0 0 8px 0 dodgerblue;
+}
+
+/* hint on the form*/
+
+.info {
+    font-size: 0.6em;
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+/*Home page*/
+
+/*image and content of the body*/
+#home {
+    margin-top: 8%;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Gotu', Arial, Helvetica, sans-serif;
+}
+
+/*content of the body*/
+.text h3 {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/*note image of the body home page */
+#note {
+    height: 100%;
+    width: 50%;
+    margin:auto;
+}
+
+.note {
+    padding-left: 70px;
+    width: 60%;
+}
+
+/*user page*/
+
+/*welcome + username on the user page*/
+#welcome {
+    font-weight: bold;
+    font-size: 1.3em;
+    font-family: 'Gotu', Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+/*add note title*/
+#addnote , #editnote {
+    text-transform: uppercase;
+    font-size: 1.1em;
+    font-family: 'Gotu', Arial, Helvetica, sans-serif;
+    text-align: center;
+
+}
+
+
+/* note informations (entered by the user) */
+#writing {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.writing {
+    width: 90%;
+    text-align: center;
+    font-size: 1.2em;
+    margin: 30px;
+}
+
+.writing-date {
+    text-align: left;
+    font-size: 0.6em;
+    color:	#4169E1;
+    width: 18%;
+    margin-bottom: 5px;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+.writing-title {
+    width: 100%;
+    font-family: 'Covered By Your Grace', cursive;
+    background-color: green;
+}
+
+.writing-content {
+    padding : 15px 10px 15px 10px;
+    background-color: maroon;
+    min-height: 80px;
+    max-width: 100%;
+    font-family: 'Comic Neue', cursive;
+    overflow: hidden;
+}
+
+
+/*Personal user informations*/
+
+#overall form {
+    width: 50%;
+    margin: auto;
+    background-color: white;
+    color:black;
+    padding-top: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#all {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    font-weight: normal;
+    border-bottom: solid white;
+    width: 55%;
+}
+
+.persoTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 8px;
+}
+
+.persoContent {
+    font-size: 1.4em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#overall a {
+    text-align: center;
+    font-size: 1.3em;
+    color: green;
+    margin-left: 40%;
+    color: black;
+    font-style: italic;
+}
+
+#overall a :hover {
+    font-weight: bold;
+}
+
+#a_masquer {
+    display: none;
+}
+
+
+/*about me*/
+
+#about {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 1.3em;
+    text-align: justify;
+    color: #D3D3D3;
+    margin-top: 45px;
+}
+
+#about a {
+    color:#D3D3D3;
+    font-style: italic;
+    font-weight: bold;
+
+}
+
+.vol :hover {
+    background-color: green;
+    font-weight: bold;
+    padding: 2px;
+    border-radius: 1px;
+}
+
+#about h3 {
+    color: orange;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#about h5 {
+    text-align: center;
+    font-weight: normal;
+    margin: 5px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.aboutLeft {
+    margin-left: 0px;
+    margin-right: 50%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.aboutRight {
+    margin-right: 0px;
+    margin-left: 50%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/*image in the about page*/
+#myImg {
+    width: 45%;
+    height:1%;
+    float: left;
+    margin: 20px 25px 20px 20px;
+    border: 5px inset #242582;
+    border-radius: 10px;
+}
+
+#about #biography {
+    margin: 30px 10px 10px 0px;
+}
+
+/*add , modify and delete icons*/
+.selecteurs {
+    text-align: right;
+}
+
+.selecteurs i {
+    margin: 5px 10px 5px 10px;
+    color: blue;
+}
+
+.add :hover{
+    background-color: green;
+    padding: 8px;
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+.delete :hover {
+        background-color: red;
+        padding: 8px;
+        border-radius: 2px;
+        opacity: 0.7;
+}
+
+.edit :hover{
+    background-color: yellow;
+    padding: 8px;
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+/*center login title and registration title*/
+.centrer h1 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.5em;
+}
+
+
+
+/*flashing messages*/
+
+#fail h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    color: red;
+}
+
+#succes h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    color: green;
+}
+
+/* forget password*/
+#forget {
+    text-align: center;
+    margin: 10px;
+}
+
+#forget :hover {
+    font-weight: bold;
+}
+
+/*password resetting page*/
+
+#container-box {
+    margin-bottom: 40px;
+}
+
+#white-box {
+    background-color: white;
+    border-radius: 6px;
+    width: 45%;
+    margin: auto;
+}
+
+#white-box h2 {
+    color: #242582;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+#white-box h5 {
+    color: gray;
+    text-align: center;
+    margin: 20px;
+}
+
+#button {
+    margin-bottom: 45px;
+    width: 30%;
+    text-align: center;
+    margin-left: 35%;
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+#resetSpace {
+    font-size: 1.35em;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.resetTitle {
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 20px;
+    font-size: 0.8em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

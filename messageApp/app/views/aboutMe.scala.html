@@ -1,0 +1,96 @@
+@import play.mvc.Http.Request
+
+@()(implicit request: Request)
+
+
+@layout("Home")  {
+    
+        <div id="about">
+
+            <div class="about">
+
+                <div class="myImg">
+                    <img id = "myImg" src="@routes.Assets.versioned("/images/moi.jpg")" alt="image_note"/>
+                </div>
+
+                <h3>My Biography </h3>
+
+                <p id="biography">
+                    My name is Nkoa Christophe , i am 23 years old. I was born in Yaounde , i grew up
+                    there till 2017 when i succeeded the entrance exam of FET which stands for Faculty of 
+                    Engineering and technology of Buea. For now i am a year 3 software enginneering 
+                    student.
+
+                </p> 
+            </div>
+
+            <div class="aboutLeft">
+                <h3>my school curriculum </h3>
+                <p>
+                    <h5>
+                        My secondary education
+                    </h5>
+                    <div> 
+                            BEPC in 2013 at <span class="italic">Lycee de Ngousso</span>. PROBATOIRE 
+                            in 2015 at <span class="italic">Lycee de Ngousso</span>. BACCALAUREAT
+                            in 2016 at <span class="italic">Lycee de Ngousso</span>.
+                    </div>
+
+                    <h5>
+                        My Higher education
+                    </h5>
+                    <div>
+                        In 2016 i was admitted in the University of Yaounde 1 Informatique option. In 
+                        2017 i succeeded the FET entrance exam.  
+                    </div> 
+                </p> 
+            </div>
+
+            <div class="aboutRight">
+                <h3>My Professional life </h3>
+                <p>
+                    From now , i realized many applications and websites, my best success are an e-commerce web site
+                    <a href="http://light-design-e.com/" target="_blank" class="vol">light design industry</a> and my note application <a class="vol" href="@routes.HomeController.index()">noteApp</a>. I
+                    got also some certification like <a href="https://www.coursera.org/account/accomplishments/certificate/KQ8ZVVT7CWKE" target="_blank">java certification</a> from coursera and <a class="vol" href="https://openclassrooms.com/fr/course-certificates/6199365357" target="_blank">Html certification</a>.
+                    From now i am learning play Framework at <a class="vol" href="https://njorku.com/" target="_blank">Njourku</a> and this application is the product of that 
+                    coorporation.
+                </p> 
+            </div>
+
+            <div class="aboutLeft">
+                <h3>My social live </h3>
+                <p>
+                    I to connect with people , i am easy to live with , i don't have a problem with group work.
+                    I am serious , i am focus on what am doing.
+                    I am kind, attentive, honest, hard working and I like helping others.
+                    I am a christian and keep a precious place for my faith.
+                </p> 
+            </div>
+
+            <div class="aboutRight">
+                <h3>My futur </h3>
+                <p>
+                    I want to be a good software engineer that is why i am trying to learn and follow some strict live rules.
+                    I try to gain experience and knowledge. I am ready to take up many challenges , if you want to meet me you can
+                    <a class="vol" href="@routes.HomeController.aboutMe().withFragment("footer").absoluteURL(request)">contact me</a>.
+                </p> 
+            </div>
+
+
+            <div class="aboutLeft">
+                <h3>Acknowledgement</h3>
+                <p>
+                    I cannot finish without thanking Mr Churchill which accepts me into its startup to learn and grow.
+                    I thank also my "mentor" Mr Tcheutchoua Steve for all his advices. I thank my family ,my personal person , all 
+                    my friends and the most important which is GOD , i am really greatful for his support.
+                </p> 
+            </div>
+
+        </div>
+
+        
+    
+} {
+    @accueil()
+}
+

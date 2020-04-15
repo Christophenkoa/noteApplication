@@ -1,0 +1,13 @@
+@()
+
+<div id="fail">
+    @if(request.flash.data.contains("danger")) {
+        <h1>@request.flash.get("danger") </h1>
+    }
+</div> 
+
+<div id="succes">
+    @if(request.flash.data.contains("success")) {
+        <h1>@request.flash.get("success") </h1>
+    }
+</div>

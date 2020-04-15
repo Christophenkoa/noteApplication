@@ -1,0 +1,53 @@
+@import models.PasswordModification
+@import play.mvc.Http.Request
+@import helper._
+
+@(user : User , passForm : Form[PasswordModification])(implicit request: Request) 
+
+
+@layout("informations") {
+
+
+    <div id="overall">
+        <div id="all">
+            <div class="persoTitle">
+                <h2>personal informations</h2>
+            </div>
+            <div class="persoContent">
+                <h3>name : @user.getUserName()</h3>
+                <h3> email : @user.getUserEmail()</h3>
+            </div>
+        </div>
+
+        <div id="passwordModification"> 
+            <a href="#" onclick="masquer_div('a_masquer');">Modify password ?</a>
+            <div id="a_masquer">
+                
+                @helper.form(action = routes.HomeController.passwordModification()) {
+                    @helper.CSRF.formField
+    
+                    @helper.inputText(passForm("currentPassword"),
+                    '_label -> "current password",
+                    'id -> "pass1")
+
+                    @helper.inputText(passForm("password"),
+                    '_label -> "new password",
+                    'id -> "pass2")
+
+                    @helper.inputText(passForm("confirmationPassword"),
+                    '_label -> "confirm password",
+                    'id -> "pass3")
+    
+                    <input type="submit" id="button" class="btn-primary" value="Reset">
+    
+                }
+
+            </div>
+        </div>
+    </div>
+
+    @manageErrors()
+
+} {
+    @accueil1()
+}
