@@ -18,7 +18,7 @@ import play.i18n.*;
 public class HomeController extends Controller {
 
     private Form<Info> formFactory;
-    private Form<User> formFactory2;
+    private Form<User_> formFactory2;
     private Form <Note> formFactory3;
     private Form <Reset> formFactory4;
     private Form <PasswordModification> formFactory5;
@@ -30,7 +30,7 @@ public class HomeController extends Controller {
     @Inject
     public HomeController(FormFactory f, FormFactory f2 , FormFactory f3 , FormFactory f4 ,FormFactory f5 , MessagesApi messagesApi) {
         this.formFactory = f.form(Info.class) ;
-        this.formFactory2 = f2.form(User.class);
+        this.formFactory2 = f2.form(User_.class);
         this.formFactory3 = f3.form(Note.class);
         this.formFactory4 = f4.form(Reset.class);
         this.formFactory5 = f5.form(PasswordModification.class);
@@ -56,7 +56,7 @@ public class HomeController extends Controller {
         //check if a session variale exists
         if(request.session().getOptional("id").isPresent()) {
 
-            User user = findUser(request);
+            User_ user = findUser(request);
 
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  
@@ -99,13 +99,13 @@ public class HomeController extends Controller {
     @Transactional
     public Result registration(Http.Request request) {
 
-        Form<User> regForm =  formFactory2.bindFromRequest(request);   
+        Form<User_> regForm =  formFactory2.bindFromRequest(request);   
 
         if(regForm.hasErrors()) {
         return redirect(controllers.routes.HomeController.registrationPage()).flashing("danger", "WARNING : some required informations are missing");
         }
 
-        User user = regForm.get();
+        User_ user = regForm.get();
 
         //register the user if the username is not already used
         try{
@@ -130,7 +130,7 @@ public class HomeController extends Controller {
         }
 
         Info info = logForm.get();
-        User user = null;
+        User_ user = null;
 
         //check in my database if any user with those informations(from login form) exits.
         user = user.authenticates(info.name,info.password);
@@ -166,7 +166,7 @@ public class HomeController extends Controller {
         generateDate(note);
 
         //find the user who want to save a note
-        User user = findUser(request);
+        User_ user = findUser(request);
 
         //add the note in the note list of that user 
         user.getNotes().add(note);
@@ -190,7 +190,7 @@ public class HomeController extends Controller {
         //if the user is still connected via a session name go to the user page else to the login page
         if(request.session().getOptional("id").isPresent()){
 
-            User user = findUser(request);
+            User_ user = findUser(request);
 
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  
@@ -210,7 +210,7 @@ public class HomeController extends Controller {
 
         // if the user exists delete the note else go to the login page
         if(request.session().getOptional("id").isPresent()){
-            User user = findUser(request);
+            User_ user = findUser(request);
             Note note = Note.find.byId(id);
             note.delete();
             return redirect(controllers.routes.HomeController.userSpace());
@@ -231,7 +231,7 @@ public class HomeController extends Controller {
         update controller to process them. If there are some errors go to the login page */
         if(request.session().getOptional("id").isPresent()){
 
-            User user = findUser(request);
+            User_ user = findUser(request);
 
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  
@@ -271,11 +271,11 @@ public class HomeController extends Controller {
 
 
     //retrieve the current user via the session vaiable(id)
-    private User findUser(Http.Request request) { 
+    private User_ findUser(Http.Request request) { 
 
             String stringId = request.session().getOptional("id").orElse("id");
             Long id = Long.parseLong(stringId);
-            User user = User.find.byId(id);
+            User_ user = User_.find.byId(id);
             return user;
     }
 
@@ -320,7 +320,7 @@ public class HomeController extends Controller {
         }
 
         Reset userEmail = resetForm.get();
-        User user = null;
+        User_ user = null;
         user = user.findingEmail(userEmail.email);
 
         //check in my database if any user with those informations(from login form) exits.
@@ -392,7 +392,7 @@ public class HomeController extends Controller {
         //if they are matched , use the session variable to find the current user
         if(request.session().getOptional("id").isPresent()){
 
-            User user = findUser(request);
+            User_ user = findUser(request);
 
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  

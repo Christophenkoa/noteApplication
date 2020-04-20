@@ -13,7 +13,8 @@ import javax.inject.Inject;
 
 
 @Entity
-public class User extends Model {
+public class User_ extends Model {
+    @Column(name="user_")
     @Id
     private Long userID;
 
@@ -29,14 +30,14 @@ public class User extends Model {
     @Column(unique=true)
     private String userEmail;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Note> notes;
 
 
 //constructors
 
     @Inject 
-    public User(Long id , String name , String email , String password , List<Note> notes) {
+    public User_(Long id , String name , String email , String password , List<Note> notes) {
         this.userName = name;
         this.userID = id;
         this.userEmail = email ;
@@ -93,11 +94,11 @@ public class User extends Model {
 
 
     // Retrieve all users from the database
-    public static Finder <Long,User> find = new Finder<Long, User>(User.class);
+    public static Finder <Long,User_> find = new Finder<Long, User_>(User_.class);
 
 
 
-    public static User findByUserName(String userName) {
+    public static User_ findByUserName(String userName) {
         return find.query().where()
                 .eq("userName", userName)
                 .findOne();
@@ -106,10 +107,10 @@ public class User extends Model {
 
 
     //check there is an user in our db with taht name and password
-    public static User authenticates(String name, String password) {
+    public static User_ authenticates(String name, String password) {
 
         //find a user with that name
-        User user = find
+        User_ user = find
                     .query()
                     .where()
                     .eq("userName", name)
@@ -130,9 +131,9 @@ public class User extends Model {
     }
 
     //Searching a particular user via a given email
-        public static User findingEmail(String email) {
+        public static User_ findingEmail(String email) {
 
-        User user = find
+        User_ user = find
                     .query()
                     .where()
                     .eq("userEmail", email)

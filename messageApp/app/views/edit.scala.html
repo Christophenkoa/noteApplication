@@ -1,10 +1,9 @@
-@import models.User;
-@import models.Note;
+@import models._
 @import play.mvc.Http.Request
 @import helper._
 
 
-@(user:User , noteForm : Form[Note])(implicit request: Request)
+@(user:User_ , noteForm : Form[Note])(implicit request: Request)
 
 @layout("update a note"){
 

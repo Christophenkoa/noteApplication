@@ -1,10 +1,10 @@
-@import models.User;
+@import models.User_;
 @import models.Note;
 @import play.mvc.Http.Request
 @import helper._
 @import java.util._
 
-@(user:User , noteForm : Form[Note])(implicit request: Request)
+@(user:User_ , noteForm : Form[Note])(implicit request: Request)
 
 @layout("welcome"){
 

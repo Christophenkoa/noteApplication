@@ -9,6 +9,7 @@ lazy val root = (project in file("."))
       guice,
       jdbc,
       "com.h2database" % "h2" % "1.4.199",
+      "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
       "org.avaje" % "ebean" % "2.7.3",
       "javax.persistence" % "persistence-api" % "1.0.2",
       "org.awaitility" % "awaitility" % "3.1.6" % Test,

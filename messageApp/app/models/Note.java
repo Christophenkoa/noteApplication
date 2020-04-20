@@ -21,16 +21,16 @@ public class Note extends Model {
     @Constraints.Required
     private String noteContent;
 
-    private String date;
+    private String date_;
 
     @ManyToOne
-    private User user;
+    private User_ user;
 
 
 //constructors
 
     @Inject 
-    public Note (Long id , String name , String content , User user) {
+    public Note (Long id , String name , String content , User_ user) {
         this.noteName = name;
         this.noteID = id;
         this.noteContent = content;
@@ -55,10 +55,10 @@ public class Note extends Model {
     }
 
     public String getDate() {
-        return this.date;
+        return this.date_;
     }
 
-    public User getUser() {
+    public User_ getUser() {
         return this.user;
     }
 
@@ -78,10 +78,10 @@ public class Note extends Model {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date_ = date;
     }
 
-    public void setUser(User user) {
+    public void setUser(User_ user) {
         this.user = user;
     }
 
