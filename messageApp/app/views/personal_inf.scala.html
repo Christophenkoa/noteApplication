@@ -2,7 +2,7 @@
 @import play.mvc.Http.Request
 @import helper._
 
-@(user : User_ , passForm : Form[PasswordModification])(implicit request: Request) 
+@(user : User_ , passForm : Form[PasswordModification])(implicit request: Request, messages: play.i18n.Messages) 
 
 
 @layout("informations") {
@@ -20,25 +20,41 @@
         </div>
 
         <div id="passwordModification"> 
-            <a href="#" onclick="masquer_div('a_masquer');">Modify password ?</a>
+            <a href="#" onclick="masquer_div('a_masquer')">Modify password ?</a>
             <div id="a_masquer">
                 
                 @helper.form(action = routes.HomeController.passwordModification()) {
                     @helper.CSRF.formField
     
-                    @helper.inputText(passForm("currentPassword"),
+                    <!-- @helper.inputText(passForm("currentPassword"),
                     '_label -> "current password",
-                    'id -> "pass1")
+                    'id -> "pass1") -->
 
-                    @helper.inputText(passForm("password"),
+                    <div class="form-group">
+                        <label>current password</label>
+                        <input type="text" name="currentPassword" id="pass1" class="form-control">
+                    </div>
+                    
+
+                    <!-- @helper.inputText(passForm("password"),
                     '_label -> "new password",
-                    'id -> "pass2")
+                    'id -> "pass2") -->
 
-                    @helper.inputText(passForm("confirmationPassword"),
+                    <div class="form-group">
+                        <label>new password</label>
+                        <input type="password" name="new password" id="pass2" class="form-control">
+                    </div>
+
+                    <!-- @helper.inputText(passForm("confirmationPassword"),
                     '_label -> "confirm password",
-                    'id -> "pass3")
+                    'id -> "pass3") -->
+
+                    <div class="form-group">
+                        <label>confirm password</label>
+                        <input type="password" name="new password" id="pass3" class="form-control">
+                    </div>
     
-                    <input type="submit" id="button" class="btn-primary" value="Reset">
+                    <input type="submit" id="button" class="btn btn-primary" value="Reset">
     
                 }
 

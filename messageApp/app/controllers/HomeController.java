@@ -22,7 +22,7 @@ public class HomeController extends Controller {
     private Form <Note> formFactory3;
     private Form <Reset> formFactory4;
     private Form <PasswordModification> formFactory5;
-    private MessagesApi messagesApi;
+    private final MessagesApi messagesApi;
 
     // id of the note which will be modified
     public static Long idNote = -1L; 
@@ -49,6 +49,24 @@ public class HomeController extends Controller {
         return ok(views.html.aboutMe.render(request));
     } 
 
+    //controller to note presentation page
+    public Result notePresentation(Http.Request request, Long id) {
+        
+        // if the user exists display selected note else go to the login page
+        if(request.session().getOptional("id").isPresent()){
+
+            try {
+                Note note = Note.find.byId(id);
+                return ok(views.html.notePresentation.render(note,formFactory3, request,messagesApi.preferred(request)));
+            }catch(NullPointerException e) {
+                return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "WARNING : That note doesn't exist");
+            }
+            
+        }else {
+            return redirect(controllers.routes.HomeController.loginPage());
+        }
+    }
+
 
     //controller to display my personnal information if i loged in
     public Result myData(Http.Request request) {
@@ -61,9 +79,9 @@ public class HomeController extends Controller {
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  
             }
-            return ok(views.html.personal_inf.render(user , formFactory5 , request));
+            return ok(views.html.personal_inf.render(user , formFactory5 , request,messagesApi.preferred(request)));
         }else{ 
-            return ok(views.html.login.render(formFactory, request));
+            return ok(views.html.login.render(formFactory, request,messagesApi.preferred(request)));
         }
     }
 
@@ -76,7 +94,7 @@ public class HomeController extends Controller {
         if(request.session().getOptional("id").isPresent()) {
             return redirect(controllers.routes.HomeController.userSpace());
         }else{ 
-            return ok(views.html.login.render(formFactory, request));
+            return ok(views.html.login.render(formFactory, request,messagesApi.preferred(request)));
         }
     }
 
@@ -88,7 +106,7 @@ public class HomeController extends Controller {
         if(request.session().getOptional("id").isPresent()) {
             return redirect(controllers.routes.HomeController.userSpace());
         } else{ 
-            return ok(views.html.registration.render(formFactory2, request));
+            return ok(views.html.registration.render(formFactory2, request,messagesApi.preferred(request)));
          }
     }
 
@@ -102,7 +120,7 @@ public class HomeController extends Controller {
         Form<User_> regForm =  formFactory2.bindFromRequest(request);   
 
         if(regForm.hasErrors()) {
-        return redirect(controllers.routes.HomeController.registrationPage()).flashing("danger", "WARNING : some required informations are missing");
+            return redirect(controllers.routes.HomeController.registrationPage()).flashing("danger", "WARNING : some required informations are missing");
         }
 
         User_ user = regForm.get();
@@ -111,7 +129,7 @@ public class HomeController extends Controller {
         try{
             user.save();
         }catch(io.ebean.DuplicateKeyException e) {
-            return redirect(controllers.routes.HomeController.registrationPage()).flashing("danger", "WARNING : This user name is already used");
+            return redirect(controllers.routes.HomeController.registrationPage()).flashing("danger", "WARNING : This user name or/and email are already used");
         }
         
 
@@ -140,7 +158,7 @@ public class HomeController extends Controller {
         if(user != null) {
 
             String id = String.valueOf(user.getUserID());
-            return ok(views.html.user.render(user,formFactory3, request)).
+            return ok(views.html.user.render(user,formFactory3, request,messagesApi.preferred(request))).
                                             addingToSession(request, "id", id);
 
         //print an error if there is no user with those informations
@@ -175,7 +193,12 @@ public class HomeController extends Controller {
         note.setUser(user);
 
         //save the note 
-        note.save();
+        try {
+            note.save();
+        }catch(io.ebean.DuplicateKeyException e) {
+            return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "WARNING : This title is already use");
+        }
+        
 
         //stay on the user space to see the new note
         return redirect(controllers.routes.HomeController.userSpace());
@@ -196,7 +219,7 @@ public class HomeController extends Controller {
               return redirect(controllers.routes.HomeController.loginPage());  
             }
 
-            return ok(views.html.user.render(user,formFactory3, request));
+            return ok(views.html.user.render(user,formFactory3, request,messagesApi.preferred(request)));
 
         }else {
             return redirect(controllers.routes.HomeController.loginPage());
@@ -210,7 +233,7 @@ public class HomeController extends Controller {
 
         // if the user exists delete the note else go to the login page
         if(request.session().getOptional("id").isPresent()){
-            User_ user = findUser(request);
+            //User_ user = findUser(request);
             Note note = Note.find.byId(id);
             note.delete();
             return redirect(controllers.routes.HomeController.userSpace());
@@ -227,20 +250,8 @@ public class HomeController extends Controller {
         //keep the note id in our global variable to use it in the update method or controller
         idNote = id;
 
-        /*check if the user exits and if there is no errors send the new note properties to the
-        update controller to process them. If there are some errors go to the login page */
-        if(request.session().getOptional("id").isPresent()){
+        return redirect(controllers.routes.HomeController.notePresentation(id));
 
-            User_ user = findUser(request);
-
-            if(user == null) {
-              return redirect(controllers.routes.HomeController.loginPage());  
-            }
-            return ok(views.html.edit.render(user,formFactory3, request));
-
-        }else {
-            return redirect(controllers.routes.HomeController.loginPage());
-        }
     }
 
 
@@ -255,18 +266,17 @@ public class HomeController extends Controller {
 
         Note newNote = noteForm.get();
 
-        //if the note id exist to erase the previous note content by the new one if not flash an error
-        if(idNote != -1) {
+        //if the note id exists ,  erase the previous note content by the new one if not flash an error
+        if(idNote != -1L) {
             Note oldNote = Note.find.byId(idNote);
             oldNote.setNoteName(newNote.getNoteName());
             oldNote.setNoteContent(newNote.getNoteContent());
             generateDate(oldNote);
             oldNote.update();
-            return redirect(controllers.routes.HomeController.userSpace()).flashing("success", "Note updated successfully");
+            return redirect(controllers.routes.HomeController.notePresentation(idNote)).flashing("success", "Note updated successfully");
         }else {
-            return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "Note not found");
+            return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "You can't edit from here");
         }
-        
     }
 
 
@@ -289,7 +299,7 @@ public class HomeController extends Controller {
 
     //generate a date for a particular note
     private void generateDate(Note note) {
-        String pattern = "EEEEE dd MMMMM yyyy HH:mm";
+        String pattern = "dd MMMMM yyyy HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
         note.setDate(date);
@@ -304,7 +314,7 @@ public class HomeController extends Controller {
         if(request.session().getOptional("id").isPresent()) {
             return redirect(controllers.routes.HomeController.userSpace());
         }else{ 
-            return ok(views.html.passwordReset.render(formFactory4, request));
+            return ok(views.html.passwordReset.render(formFactory4, request,messagesApi.preferred(request)));
         }
     }
 

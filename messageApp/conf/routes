@@ -3,11 +3,12 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                       controllers.HomeController.index()
+GET     /                           controllers.HomeController.index()
 GET     /registration               controllers.HomeController.registrationPage(request : Request)
 GET     /mySpace                    controllers.HomeController.userSpace(request : Request)
 GET     /logout                     controllers.HomeController.logout(request : Request)
 GET     /informations               controllers.HomeController.myData(request : Request)
+GET     /notePresentation/:id       controllers.HomeController.notePresentation(request : Request , id : Long)
 GET     /deleNote/:id               controllers.HomeController.deleteNote(request : Request , id : Long)
 GET     /editNote/:id               controllers.HomeController.editNote(request : Request , id : Long)
 GET     /updateNote                 controllers.HomeController.updateNote(request : Request)

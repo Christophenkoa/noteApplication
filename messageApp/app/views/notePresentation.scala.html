@@ -1,0 +1,51 @@
+@import models.User_;
+@import models.Note;
+@import play.mvc.Http.Request
+
+@(note : Note , noteForm : Form[Note])(implicit request: Request, messages: play.i18n.Messages)
+
+@layout("display selected note") {
+
+    <section class="writing">
+        
+        <section class="writing-title1">
+            @note.getNoteName
+        </section>
+
+        <section class="writing-content1">
+            <span class="text">@note.getNoteContent</span>
+        </section>
+
+    </section>
+
+
+    <!-- Focus next -->
+    
+    <div id="hidden">
+        <a href="@routes.HomeController.notePresentation(note.getNoteID).withFragment("editnote").absoluteURL(request)" onclick="masquer_div('a_masquer');">
+            <img id = "downArrow" src="@routes.Assets.versioned("/images/down2.png")" alt="Down_arrow">
+        </a>
+    </div>
+
+    <div id="a_masquer">
+
+        <h3 id="editnote">Update the selected note</h3>
+        
+
+        @helper.form(action = routes.HomeController.updateNote() , 'id -> "edit_note_form") {
+        @helper.CSRF.formField
+
+            <label for="fname">Note title:</label><br>
+            <input type="text" id="title" name="noteName" value="@note.getNoteName"><br>
+
+            <label>Description</label>
+            <textarea id="w3review" name="noteContent" rows="8" cols="70">@note.getNoteContent</textarea>
+
+            <input type="submit" class="btn-primary" value="update">
+
+        }
+    </div>
+
+}{
+    @accueil1()
+}

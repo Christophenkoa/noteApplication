@@ -6,7 +6,7 @@ import play.libs.mailer.MailerClient;
 import javax.inject.Inject;
 import java.io.File;
 import org.apache.commons.mail.EmailAttachment;
-import models.User;
+import models.User_;
 import play.data.*;
 import play.db.ebean.Transactional;
 import java.util.*;
@@ -20,7 +20,7 @@ public class MailerService extends Controller{
   public Result sendEmail(String emailReceive , String password , Http.Request request) {
     Email email = new Email()
       .setSubject("noteApp your second memory")
-      .setFrom("aa@gmail.com")
+      .setFrom("nkoachristophe@gmail.com")
       .addTo(emailReceive)
       .setBodyText("------")
       .setBodyHtml("<html><body><p>"+ 

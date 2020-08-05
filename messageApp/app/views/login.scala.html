@@ -2,24 +2,60 @@
 @import play.mvc.Http.Request
 @import helper._
 
-    @(loginForm : Form[Info])(implicit request: Request) 
+    @(loginForm : Form[Info])(implicit request: Request, messages: play.i18n.Messages) 
 
     @layout("Form Page"){
-        <div class="centrer">
-            <h1>LOGIN PAGE </h1>
-        </div>
+        
+        <div class="loginContainer">
+            
+            <div class="centrer">
+                <h2>LOGIN PAGE </h2>
+            </div>
 
-        @helper.form(action = routes.HomeController.authenticate()) {
-        @helper.CSRF.formField
-        @helper.inputText(loginForm("name"))
-        @helper.inputPassword(loginForm("password"))
+            @helper.form(action = routes.HomeController.authenticate()) {
+            @helper.CSRF.formField
 
-        <input type="submit" class="btn-primary" value="send">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name"  onkeyup='saveValue(this);'>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
 
-        }
+            <input type="submit" class="btn btn-primary" value="send">
 
-        <div id="forget">
-            <a href="@routes.HomeController.resetPage()">Forgot password ?</a>
+            }
+
+
+            <!-- i am looking a way to include it inside a javascript file and call it -->
+
+            <script type="text/javascript">
+                document.getElementById("name").value = getSavedValue("name");    // set the value to this input
+                /* Here you can add more inputs to set value. if it's saved */
+        
+                //Save the value function - save it to localStorage as (ID, VALUE)
+                function saveValue(e){
+                    var id = e.id;  
+                    var val = e.value; 
+                    localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override . 
+                }
+        
+                //get the saved value function - return the value of "v" from localStorage. 
+                function getSavedValue  (v){
+                    if (!localStorage.getItem(v)) {
+                        return "";// You can change this to your defualt value. 
+                    }
+                    return localStorage.getItem(v);
+                }
+            </script>
+
+
+
+            <div id="forget">
+                <small id="passwordHelpBlock" class="form-text text-muted"><a href="@routes.HomeController.resetPage()">Forgot password ?</a></small>
+            </div>
         </div>
 
         @manageErrors()

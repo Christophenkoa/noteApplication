@@ -14,7 +14,8 @@ import javax.inject.Inject;
 public class Note extends Model {
     @Id
     private Long noteID;
-
+    
+    @Column(unique=true)
     @Constraints.Required
     private String noteName;
 

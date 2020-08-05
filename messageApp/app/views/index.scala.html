@@ -4,18 +4,24 @@
 @layout("Home")  {
     
         <div id="home">
+            <div class="row">
 
-            <div class="note">
-                <img id = "note" src="@routes.Assets.versioned("/images/v2.png")" alt="image_note"/>
+                <!-- <div class="note"> -->
+                <div class="col-md-6">
+                    <img id = "note" class="rounded" src="@routes.Assets.versioned("/images/v2.png")" alt="image_note"/>
+                </div>
+
+                <!-- <div class="text"> -->
+                <div class="col-md-6">
+                    <div class="text">
+                        <h3>My favorite noteApp </h3>
+                        <p>noteApp is a secondary space that you can use to keep your notes.<br>
+                        Safe your brain space or memory and store your informations in our plateform</p>
+                        <p>you can trust us for your notes and join our community by Signing up now.</p> 
+                    </div>
+                </div>
+
             </div>
-
-            <div class="text">
-                <h3>My favorite noteApp </h3>
-                <p>noteApp is a secondary space that you can use to keep your notes.<br>
-                   Safe your brain space or memory and store your informations in our plateform</p>
-                <p>you can trust us for your notes and join our community by Signing up now</p> 
-            </div>
-
         </div>
     
 } {

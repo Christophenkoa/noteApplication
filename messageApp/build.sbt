@@ -1,7 +1,7 @@
 lazy val root = (project in file("."))
   .enablePlugins(PlayJava, PlayEbean)
   .settings(
-    name := """messageApp""",
+    name := """messageapp""",
     organization := "com.example",
     version := "1.0-SNAPSHOT",
     scalaVersion := "2.12.8",
