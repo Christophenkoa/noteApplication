@@ -9,18 +9,18 @@
 
 
     <div id="overall">
-        <div id="all">
-            <div class="persoTitle">
-                <h2>personal informations</h2>
+        <div id="all" class="card bg-light mb-3">
+            <div>
+                <h2 class="card-header">personal informations</h2>
             </div>
-            <div class="persoContent">
-                <h3>name : @user.getUserName()</h3>
-                <h3> email : @user.getUserEmail()</h3>
+            <div class="card-body">
+                <h5 class="card-title">name : @user.getUserName()</h5>
+                <h3 class="card-text"> email : @user.getUserEmail()</h3>
             </div>
         </div>
 
         <div id="passwordModification"> 
-            <a href="#" onclick="masquer_div('a_masquer')">Modify password ?</a>
+            <a href="#" id="my_link" onclick="masquer_div('a_masquer')">Modify password ?</a>
             <div id="a_masquer">
                 
                 @helper.form(action = routes.HomeController.passwordModification()) {

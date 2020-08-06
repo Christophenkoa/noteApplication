@@ -6,17 +6,23 @@
 
 @layout("display selected note") {
 
-    <section class="writing">
-        
-        <section class="writing-title1">
-            @note.getNoteName
-        </section>
 
-        <section class="writing-content1">
-            <span class="text">@note.getNoteContent</span>
-        </section>
-
-    </section>
+    <div id="info_note">
+        <div id="noteCard" class="card text-white bg-dark mb-3">
+            <div>
+                <h2 class="card-header">Note content</h2>
+            </div>
+            <section class="card-body">
+                <section class="card-title">
+                    <h5>@note.getNoteName</h5>
+                </section>
+                <hr>
+                <section class="card-text">
+                    <h4>@note.getNoteContent</h4>
+                </section>
+            </section>
+        </div>
+    </div>
 
 
     <!-- Focus next -->
@@ -34,14 +40,18 @@
 
         @helper.form(action = routes.HomeController.updateNote() , 'id -> "edit_note_form") {
         @helper.CSRF.formField
+        
+            <div class="form-group">
+                <label for="fname">Note title:</label>
+                <input type="text" class="form-control" id="title" name="noteName" value="@note.getNoteName">
+            </div>
 
-            <label for="fname">Note title:</label><br>
-            <input type="text" id="title" name="noteName" value="@note.getNoteName"><br>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="w3review" name="noteContent" rows="8" cols="70">@note.getNoteContent</textarea>
+            </div>
 
-            <label>Description</label>
-            <textarea id="w3review" name="noteContent" rows="8" cols="70">@note.getNoteContent</textarea>
-
-            <input type="submit" class="btn-primary" value="update">
+            <input type="submit" class="btn btn-primary" value="update">
 
         }
     </div>

@@ -145,12 +145,42 @@ footer a {
 
 /* personal informations */
 
-#overall {
+/* #overall {
+    width: fit-content;
     margin: auto;
     padding: 20px;
+} */
+
+#passwordModification {
+    margin: auto;
+    text-align: center;
 }
 
-#all {
-    text-align: justify;
-    margin: 20px;
+#my_link {
+    text-transform: uppercase;
+    color: darkslategrey;
+    font-size: small;
 }
+
+/* note presentation */
+
+#info_note {
+    width: fit-content;
+    margin: auto;
+    padding: 20px;
+    min-width: 70%;
+} 
+
+#noteCard {
+    margin: 50px;
+}
+
+#hidden {
+    text-align: center;
+    margin: 22px;
+}
+
+#downArrow {
+    max-height: 100px;
+}
+
