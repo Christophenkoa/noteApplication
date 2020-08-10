@@ -93,14 +93,14 @@ footer a {
     margin: 50px;
 }
 
-#a_masquer {
+#note_form {
     width: 60%;
     margin-left: 38px;
     /* margin: 40px; */
     /* margin: auto; */
 }
 
-#a_masquer h3 {
+#note_form h3 {
     font-weight: bold;
     font-size:1.6em;
     /* margin: 20px; */
@@ -175,12 +175,11 @@ footer a {
     margin: 50px;
 }
 
-#hidden {
+/* profile */
+
+#note_form h5 {
+    font-size: small;
+    color: blue;
     text-align: center;
-    margin: 22px;
+    margin-bottom: 10px;
 }
-
-#downArrow {
-    max-height: 100px;
-}
-

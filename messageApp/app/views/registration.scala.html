@@ -14,20 +14,19 @@
             </div>
 
             @helper.form(action = routes.HomeController.registration()) {
-                @helper.CSRF.formField
-
+                
                 <div class="form-group">
                     <label for="name">Name:</label><br>
                     <input type="text" class="form-control"  id="name" name="userName"  onkeyup='saveValue(this);'><br>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="name">Password:</label><br>
+                    <label for="password">Password:</label><br>
                     <input type="text" class="form-control"  id="password" name="userPassword"  onkeyup='saveValue(this);'><br>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="name">Email:</label><br>
+                    <label for="email">Email:</label><br>
                     <input type="text" class="form-control" id="email" name="userEmail"  onkeyup='saveValue(this);'><br>
                 </div>
 
@@ -63,8 +62,8 @@
 
 
         
-            @manageErrors()
+            @includes.errors.manageErrors()
 
     }{
-        @accueil()
+        @includes.menu.accueil()
     }

@@ -1,0 +1,11 @@
+@(note : models.Note)
+@helper.CSRF.formField
+            <div class="form-group">
+                <label for="name">Title:</label>
+                <input type="text" class="form-control" id="title" name="noteName" value="@note.getNoteName()" placeholder="the title of your note post" onkeyup='saveValue(this);'>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Description:</label>
+                <textarea id="body" class="form-control" name="noteContent" value="@note.getNoteContent()" rows="8" cols="70" onkeyup='saveValue(this);'></textarea>
+            </div>

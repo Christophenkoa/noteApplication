@@ -4,7 +4,11 @@
 @import helper._
 @import java.util._
 
-@(user:User_ , noteForm : Form[Note])(implicit request: Request, messages: play.i18n.Messages)
+    @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@(user:User_)(implicit request: Request)
 
 @layout("welcome"){
 
@@ -29,13 +33,13 @@
                                     </section>
 
                                     <section class="writing-title">
-                                        <td data-column="Note name"><a class="title" href="@routes.HomeController.notePresentation(note.getNoteID)">@note.getNoteName</a></td>
+                                        <td data-column="Note name"><a class="title" href="@routes.HomeController.show(note.getNoteID)">@note.getNoteName</a></td>
                                     </section>
 
                                     <section class="selecteurs">
                                         <td data-column="Note action">  
                                     <!--    <a class = "add" href="@routes.HomeController.userSpace().withFragment("addnote").absoluteURL(request)"><i class="fas fa-plus"></i></a> --> 
-                                            <a class = "edit" href="@routes.HomeController.editNote(note.getNoteID)"><i class="far fa-edit"></i></a>
+                                            <a class = "edit" href="@routes.HomeController.edit(note.getNoteID)"><i class="far fa-edit"></i></a>
                                             <a class = "delete" href="@routes.HomeController.deleteNote(note.getNoteID)"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </section>
@@ -50,33 +54,10 @@
     <section class="contain_floating">
         <!-- floating button to add note-->
 
-        <a href="@routes.HomeController.userSpace().withFragment("addnote").absoluteURL(request)" class="float" onclick="masquer_div('a_masquer')">
+        <a href="@routes.HomeController.create()" class="float">
             <i class="fa fa-plus my-float"></i>
         </a>
     </section>
-
-
-
-        <div id="a_masquer">
-
-            <h3 id="addnote">Create a new Note</h3>
-
-            @helper.form(action = routes.HomeController.addNote() , 'id -> "add_note_form") {
-            @helper.CSRF.formField
-            <div class="form-group">
-                <label for="name">Title:</label>
-                <input type="text" class="form-control" id="title" name="noteName" placeholder="the title of your note post" onkeyup='saveValue(this);'>
-            </div>
-
-            <div class="form-group">
-                <label for="name">Description:</label>
-                <textarea id="body" class="form-control" name="noteContent" rows="8" cols="70" onkeyup='saveValue(this);'></textarea>
-            </div>
-
-            <input type="submit" class="btn btn-primary" value="create">
-
-            }
-        </div>
 
                     <!-- i am looking a way to include it inside a javascript file and call it -->
 
@@ -99,7 +80,7 @@
                             return localStorage.getItem(v);
                         }
                     </script>
-
+                    
     @manageErrors()
     
 }{

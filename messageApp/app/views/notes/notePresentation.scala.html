@@ -1,0 +1,40 @@
+@import models.User_;
+@import models.Note;
+@import play.mvc.Http.Request
+
+        @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@(note : Note)(implicit request: Request)
+
+@layout("display selected note") {
+
+
+    <div id="info_note">
+        <div id="noteCard" class="card text-white bg-dark mb-3">
+            <div>
+                <h2 class="card-header">Note content</h2>
+            </div>
+            <section class="card-body">
+                <section class="card-title">
+                    <h5>@note.getNoteName</h5>
+                </section>
+                <hr>
+                <section class="card-text">
+                    <h4>@note.getNoteContent</h4>
+                </section>
+            </section>
+        </div>
+    </div>
+
+    <section style = "display:inline;">
+        <a href="" class="btn btn-secondary" my-3>Edit note</a>
+        <a href="" class="btn btn-danger" my-3>Delete note</a>
+    </section>
+
+    @manageErrors()
+
+}{
+    @accueil1()
+}

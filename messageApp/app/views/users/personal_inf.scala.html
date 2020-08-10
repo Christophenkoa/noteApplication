@@ -1,0 +1,35 @@
+@import models.PasswordModification
+@import play.mvc.Http.Request
+@import helper._
+
+    @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@(user : User_)(implicit request: Request)
+
+
+@layout("informations") {
+
+
+    <div id="overall">
+        <div id="all" class="card bg-light mb-3">
+            <div>
+                <h2 class="card-header">personal informations</h2>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">name : @user.getUserName()</h5>
+                <h3 class="card-text"> email : @user.getUserEmail()</h3>
+            </div>
+        </div>
+
+        <div class="edit_profile"> 
+            <a href="@routes.HomeController.editProfile()" class="btn btn-secondary ">Edit your profile</a>
+        </div>
+    </div>
+
+    @manageErrors()
+
+} {
+    @accueil1()
+}

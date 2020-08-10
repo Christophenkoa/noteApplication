@@ -1,0 +1,31 @@
+@import models.User_;
+@import models.Note;
+@import play.mvc.Http.Request
+
+        @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@(note : Note , id : Long , noteForm : Form[Note])(implicit request: Request, messages: play.i18n.Messages)
+
+@layout("display selected note") {
+
+    <div id="note_form">
+
+        <h3 id="editnote">Update the selected note</h3>
+        
+
+        @helper.form(action = routes.HomeController.updateNote(id) , 'id -> "edit_note_form") {
+        
+            @includes.form(note)
+
+            <input type="submit" class="btn btn-secondary" value="update">
+
+        }
+    </div>
+
+    @manageErrors()
+
+}{
+    @accueil1()
+}

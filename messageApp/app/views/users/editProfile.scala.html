@@ -1,0 +1,48 @@
+@import models.PasswordModification
+@import play.mvc.Http.Request
+@import helper._
+
+        @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@(user : User_ , passForm : Form[PasswordModification])(implicit request: Request, messages: play.i18n.Messages) 
+
+@layout("display selected note") {
+
+    <div id="note_form">
+
+        <h3 id="profile">Update @user.getUserName() profile</h3>
+
+        <h5>You are allowed to modify only your password</h5>
+        
+
+        @helper.form(action = routes.HomeController.saveProfile() , 'id -> "edit_profile_form") {
+        
+            @helper.CSRF.formField
+
+            <div class="form-group">
+                <label for="password">current password:</label><br>
+                <input type="text" class="form-control"  id="current_password" name="currentPassword"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="name">new password:</label><br>
+                <input type="text" class="form-control"  id="password" name="password"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="name">confirm password:</label><br>
+                <input type="text" class="form-control"  id="confirmation_password" name="confirmationPassword"><br>
+            </div>
+
+            <input type="submit" class="btn btn-secondary" value="update">
+
+        }
+    </div>
+
+    @manageErrors()
+
+}{
+    @accueil1()
+}

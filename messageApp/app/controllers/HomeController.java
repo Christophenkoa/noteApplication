@@ -24,8 +24,6 @@ public class HomeController extends Controller {
     private Form <PasswordModification> formFactory5;
     private final MessagesApi messagesApi;
 
-    // id of the note which will be modified
-    public static Long idNote = -1L; 
 
     @Inject
     public HomeController(FormFactory f, FormFactory f2 , FormFactory f3 , FormFactory f4 ,FormFactory f5 , MessagesApi messagesApi) {
@@ -50,14 +48,14 @@ public class HomeController extends Controller {
     } 
 
     //controller to note presentation page
-    public Result notePresentation(Http.Request request, Long id) {
+    public Result show(Http.Request request, Long id) {
         
         // if the user exists display selected note else go to the login page
         if(request.session().getOptional("id").isPresent()){
 
             try {
                 Note note = Note.find.byId(id);
-                return ok(views.html.notePresentation.render(note,formFactory3, request,messagesApi.preferred(request)));
+                return ok(views.html.notes.notePresentation.render(note,request));
             }catch(NullPointerException e) {
                 return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "WARNING : That note doesn't exist");
             }
@@ -69,7 +67,7 @@ public class HomeController extends Controller {
 
 
     //controller to display my personnal information if i loged in
-    public Result myData(Http.Request request) {
+    public Result profile(Http.Request request) {
 
         //check if a session variale exists
         if(request.session().getOptional("id").isPresent()) {
@@ -79,9 +77,9 @@ public class HomeController extends Controller {
             if(user == null) {
               return redirect(controllers.routes.HomeController.loginPage());  
             }
-            return ok(views.html.personal_inf.render(user , formFactory5 , request,messagesApi.preferred(request)));
+            return ok(views.html.users.personal_inf.render(user,request));
         }else{ 
-            return ok(views.html.login.render(formFactory, request,messagesApi.preferred(request)));
+            return redirect (controllers.routes.HomeController.loginPage());
         }
     }
 
@@ -158,7 +156,7 @@ public class HomeController extends Controller {
         if(user != null) {
 
             String id = String.valueOf(user.getUserID());
-            return ok(views.html.user.render(user,formFactory3, request,messagesApi.preferred(request))).
+            return ok(views.html.notes.user.render(user, request)).
                                             addingToSession(request, "id", id);
 
         //print an error if there is no user with those informations
@@ -169,7 +167,7 @@ public class HomeController extends Controller {
 
 
     //add a note retrieves from the text area
-    public Result addNote(Http.Request request) {
+    public Result store(Http.Request request) {
 
         Form<Note> noteForm =  formFactory3.bindFromRequest(request);
 
@@ -219,8 +217,20 @@ public class HomeController extends Controller {
               return redirect(controllers.routes.HomeController.loginPage());  
             }
 
-            return ok(views.html.user.render(user,formFactory3, request,messagesApi.preferred(request)));
+            return ok(views.html.notes.user.render(user,request));
 
+        }else {
+            return redirect(controllers.routes.HomeController.loginPage());
+        }
+    }
+
+    //create a note
+
+    public Result create(Http.Request request) {
+
+        if(request.session().getOptional("id").isPresent()){
+            Note note = new Note();
+            return ok(views.html.notes.createNote.render(note,formFactory3, request,messagesApi.preferred(request)));
         }else {
             return redirect(controllers.routes.HomeController.loginPage());
         }
@@ -245,18 +255,24 @@ public class HomeController extends Controller {
 
 
     //an user edits a note
-    public Result editNote(Http.Request request , Long id){
+    public Result edit(Http.Request request , Long id){
 
-        //keep the note id in our global variable to use it in the update method or controller
-        idNote = id;
+        if(request.session().getOptional("id").isPresent()){
+            Note note = Note.find.byId(id);
 
-        return redirect(controllers.routes.HomeController.notePresentation(id));
+            if(note == null) {
+              return redirect(controllers.routes.HomeController.userSpace());  
+            }
+            return ok(views.html.notes.editNote.render(note, id, formFactory3, request,messagesApi.preferred(request)));
+        }else {
+            return redirect(controllers.routes.HomeController.loginPage());
+        }
 
     }
 
 
     //process the note informations and update that note if there is no errors
-    public Result updateNote(Http.Request request){
+    public Result updateNote(Http.Request request , Long id){
 
         Form<Note> noteForm =  formFactory3.bindFromRequest(request);
 
@@ -266,16 +282,17 @@ public class HomeController extends Controller {
 
         Note newNote = noteForm.get();
 
-        //if the note id exists ,  erase the previous note content by the new one if not flash an error
-        if(idNote != -1L) {
-            Note oldNote = Note.find.byId(idNote);
+        //get the previous note
+        Note oldNote = Note.find.byId(id);
+        
+        if(oldNote != null) {
             oldNote.setNoteName(newNote.getNoteName());
             oldNote.setNoteContent(newNote.getNoteContent());
             generateDate(oldNote);
             oldNote.update();
-            return redirect(controllers.routes.HomeController.notePresentation(idNote)).flashing("success", "Note updated successfully");
+            return redirect(controllers.routes.HomeController.show(id)).flashing("success", "Note updated successfully");
         }else {
-            return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "You can't edit from here");
+            return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "This note doesn't exit");
         }
     }
 
@@ -287,6 +304,26 @@ public class HomeController extends Controller {
             Long id = Long.parseLong(stringId);
             User_ user = User_.find.byId(id);
             return user;
+    }
+
+
+    //working on user
+
+    public Result editProfile(Http.Request request) {
+
+        if(request.session().getOptional("id").isPresent()){
+            User_ user = findUser(request);
+
+            if(user != null) {
+                return ok(views.html.users.editProfile.render(user, formFactory5, request,messagesApi.preferred(request)));
+            }else {
+                return redirect(controllers.routes.HomeController.loginPage());
+            }
+            
+        }else {
+            return redirect(controllers.routes.HomeController.loginPage());
+        }
+
     }
 
 
@@ -384,19 +421,19 @@ public class HomeController extends Controller {
 
 
     //process password modification
-    public Result passwordModification(Http.Request request) {
+    public Result saveProfile(Http.Request request) {
 
         Form<PasswordModification> passwordForm =  formFactory5.bindFromRequest(request);
 
         if(passwordForm.hasErrors()) {
-           return redirect(controllers.routes.HomeController.myData()).flashing("danger", "WARNING : fill every field correctly"); 
+           return redirect(controllers.routes.HomeController.editProfile()).flashing("danger", "WARNING : fill every field correctly"); 
         }
 
         PasswordModification passwordInfo = passwordForm.get();
 
         //check if password and confirm password are matching
         if(!passwordInfo.password.equals(passwordInfo.confirmationPassword)) {
-            return redirect(controllers.routes.HomeController.myData()).flashing("danger", "WARNING : passwords are not matching");
+            return redirect(controllers.routes.HomeController.profile()).flashing("danger", "WARNING : passwords are not matching");
         }
 
         //if they are matched , use the session variable to find the current user
@@ -412,9 +449,9 @@ public class HomeController extends Controller {
             if(passwordInfo.currentPassword.equals(user.getUserPassword())) {
                 user.setUserPassword(passwordInfo.password);
                 user.update();
-                return redirect(controllers.routes.HomeController.myData()).flashing("success", "Your password has been modified");
+                return redirect(controllers.routes.HomeController.profile()).flashing("success", "Your password has been modified");
             }else{
-                return redirect(controllers.routes.HomeController.myData()).flashing("danger", "WARNING : This is not the current password");
+                return redirect(controllers.routes.HomeController.profile()).flashing("danger", "WARNING : This is not the current password");
             }
 
         }else {

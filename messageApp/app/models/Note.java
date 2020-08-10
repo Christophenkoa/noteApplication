@@ -39,6 +39,7 @@ public class Note extends Model {
 
     }
 
+    public Note() {}
 
     //getteurs
 

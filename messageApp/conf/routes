@@ -1,26 +1,35 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
 
-# An example controller showing a sample home page
+#routes for Home page management
 GET     /                           controllers.HomeController.index()
-GET     /registration               controllers.HomeController.registrationPage(request : Request)
-GET     /mySpace                    controllers.HomeController.userSpace(request : Request)
-GET     /logout                     controllers.HomeController.logout(request : Request)
-GET     /informations               controllers.HomeController.myData(request : Request)
-GET     /notePresentation/:id       controllers.HomeController.notePresentation(request : Request , id : Long)
-GET     /deleNote/:id               controllers.HomeController.deleteNote(request : Request , id : Long)
-GET     /editNote/:id               controllers.HomeController.editNote(request : Request , id : Long)
-GET     /updateNote                 controllers.HomeController.updateNote(request : Request)
 GET     /aboutMe                    controllers.HomeController.aboutMe(request : Request)
 GET     /login                      controllers.HomeController.loginPage(request : Request)
-GET     /passwordResetting          controllers.HomeController.resetPage(request : Request)
-GET     /emailer/:email/:password   controllers.MailerService.sendEmail(email : String , password : String ,request: Request)
+GET     /registration               controllers.HomeController.registrationPage(request : Request)
 POST    /                           controllers.HomeController.authenticate(request : Request)
 POST    /registration               controllers.HomeController.registration(request : Request)
-POST    /addNote                    controllers.HomeController.addNote(request : Request)
+
+#routes for notes management
+GET     /notes                        controllers.HomeController.userSpace(request : Request)
+GET     /notes/create                 controllers.HomeController.create(request : Request)
+POST    /notes                        controllers.HomeController.store(request : Request)
+GET     /notes/:id                    controllers.HomeController.show(request : Request , id : Long)
+GET     /notes/edit/:id               controllers.HomeController.edit(request : Request , id : Long)
+POST    /notes/:id                    controllers.HomeController.updateNote(request : Request, id : Long)
+GET     /notes/delete/:id             controllers.HomeController.deleteNote(request : Request , id : Long)
+
+#routes for user informations management
+GET     /profile                    controllers.HomeController.profile(request : Request)
+GET     /editProfile                controllers.HomeController.editProfile(request : Request)
+POST    /editProfile                controllers.HomeController.saveProfile(request : Request)
+GET     /logout                     controllers.HomeController.logout(request : Request)
+
+#forgot password management routes
+GET     /passwordResetting          controllers.HomeController.resetPage(request : Request)
 POST    /passwordResetting          controllers.HomeController.resettingProcess(request : Request)
-POST    /passwordModification       controllers.HomeController.passwordModification(request : Request)
+
+#routes for email management password
+GET     /emailer/:email/:password   controllers.MailerService.sendEmail(email : String , password : String ,request: Request)
 
 
 

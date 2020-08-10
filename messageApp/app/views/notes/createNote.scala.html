@@ -1,0 +1,33 @@
+@import models.User_;
+@import models.Note;
+
+        @* import parameters *@
+@import views.html.includes.errors.manageErrors;
+@import views.html.includes.menu.accueil1;
+
+@import play.mvc.Http.Request;
+
+
+@(note: Note, noteForm : Form[Note])(implicit request: Request, messages: play.i18n.Messages)
+
+@layout("display selected note") {
+
+    <div id="note_form">
+
+        <h3 id="add_note">Create a new Note</h3>
+        
+
+        @helper.form(action = routes.HomeController.store() , 'id -> "create_note_form") {
+        
+            @includes.form(note)
+
+            <input type="submit" class="btn btn-primary" value="create">
+
+        }
+    </div>
+
+    @manageErrors()
+
+}{
+    @accueil1()
+}
