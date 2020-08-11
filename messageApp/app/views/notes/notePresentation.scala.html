@@ -18,19 +18,21 @@
             </div>
             <section class="card-body">
                 <section class="card-title">
-                    <h5>@note.getNoteName</h5>
+                    <em><h5><strong>title: </strong>@note.getNoteName</h5></em>
                 </section>
                 <hr>
                 <section class="card-text">
-                    <h4>@note.getNoteContent</h4>
+                    <h4><strong>content: </strong>@note.getNoteContent</h4>
                 </section>
             </section>
         </div>
     </div>
 
-    <section style = "display:inline;">
-        <a href="" class="btn btn-secondary" my-3>Edit note</a>
-        <a href="" class="btn btn-danger" my-3>Delete note</a>
+    <section class="actions" style ="text-align: center;">
+        <section style = "display:inline;">
+            <a href="@routes.HomeController.edit(note.getNoteID)" class="btn btn-secondary" my-3>Edit note</a>
+            <a href="@routes.HomeController.deleteNote(note.getNoteID)" class="btn btn-danger" my-3>Delete note</a>
+        </section>
     </section>
 
     @manageErrors()
