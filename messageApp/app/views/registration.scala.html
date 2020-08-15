@@ -14,7 +14,7 @@
             </div>
 
             @helper.form(action = routes.HomeController.registration()) {
-                
+                @helper.CSRF.formField
                 <div class="form-group">
                     <label for="name">Name:</label><br>
                     <input type="text" class="form-control"  id="name" name="userName"  onkeyup='saveValue(this);'><br>

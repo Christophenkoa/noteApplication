@@ -14,42 +14,48 @@
 
 <h2 id="welcome">Welcome @user.getUserName()</h2> 
 
-    <section id="writing">
-        <table style="width:100%" class="table table-bordered" id="notes_list">
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Note</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-                @for(note <- user.getNotes) {
-                    <tbody>
-                        <tr>
-                                <section class="writing"> 
-
-                                    <section class="writing-date">
-                                        <td data-column="Date">@note.getDate</td>
+    @if(user.getNotes().isEmpty) {
+        <div class="empty">
+            <h3>You don't have any notes please just create a new one now!</h3>
+            <img id = "empty_image" class="img-responsive" src="@routes.Assets.versioned("/images/empty.jpg")" alt="empty_note"/>
+        </div>
+    }else {
+        <section id="writing">
+            <table style="width:100%" class="table table-striped table-dark" id="notes_list">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                    @for(note <- user.getNotes) {
+                        <tbody>
+                            <tr>
+                                    <section class="writing"> 
+    
+                                        <section class="writing-date">
+                                            <td data-column="Date">@note.getDate</td>
+                                        </section>
+    
+                                        <section class="writing-title">
+                                            <td data-column="Note name"><a class="title" href="@routes.HomeController.show(note.getNoteID)">@note.getNoteName</a></td>
+                                        </section>
+    
+                                        <section class="selecteurs">
+                                            <td data-column="Note action">  
+                                                <a class = "edit" href="@routes.HomeController.edit(note.getNoteID)"><i class="far fa-edit"></i></a>
+                                                <a class = "delete" href="@routes.HomeController.deleteNote(note.getNoteID)"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </section>
                                     </section>
-
-                                    <section class="writing-title">
-                                        <td data-column="Note name"><a class="title" href="@routes.HomeController.show(note.getNoteID)">@note.getNoteName</a></td>
-                                    </section>
-
-                                    <section class="selecteurs">
-                                        <td data-column="Note action">  
-                                    <!--    <a class = "add" href="@routes.HomeController.userSpace().withFragment("addnote").absoluteURL(request)"><i class="fas fa-plus"></i></a> --> 
-                                            <a class = "edit" href="@routes.HomeController.edit(note.getNoteID)"><i class="far fa-edit"></i></a>
-                                            <a class = "delete" href="@routes.HomeController.deleteNote(note.getNoteID)"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </section>
-                                </section>
-                        </tr>
-                    </tbody>
-                }
-        </table>
-
-    </section>
+                            </tr>
+                        </tbody>
+                    }
+            </table>
+    
+        </section>
+    }
 
     <section class="contain_floating">
         <!-- floating button to add note-->

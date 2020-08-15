@@ -36,6 +36,15 @@ footer .row {
     margin: 5px;
 }
 
+
+#call {
+    margin-left: 58px;
+}
+
+#mail {
+    margin-left: 78px;
+}
+
 footer a {
     color: white;
 }
@@ -96,20 +105,17 @@ footer a {
 #note_form {
     width: 60%;
     margin-left: 38px;
-    /* margin: 40px; */
-    /* margin: auto; */
 }
 
 #note_form h3 {
     font-weight: bold;
     font-size:1.6em;
-    /* margin: 20px; */
     text-align: center;
     margin-top: 38px;
 }
 
 .title{
-    color: black;
+    color:white;
 }
 
 .edit {
@@ -118,6 +124,21 @@ footer a {
 
 .delete {
     color: red;
+}
+
+.empty {
+    text-align: center;
+}
+
+.empty h3{
+    margin-bottom: 25px;
+}
+
+#empty_image {
+    width: 45%;
+    height:1%;
+    border: 5px inset gray;
+    border-radius: 10px;
 }
 
 /* floating botton */
@@ -249,18 +270,51 @@ footer a {
     border-radius: 10px;
 }
 
+/* resetting page */
+
+#contain{
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    min-height: 300px;
+    border-radius: 5px;
+    color: #757575;
+    background-color: aliceblue;
+}
+
+#container-box {
+    margin: auto;
+    padding: 20px;
+}
+
+.resetTitle {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 48px;
+}
+
+.resetTitle h1 {
+    font-weight: normal;
+    font-size: 1.8em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 /*flashing messages*/
 
 #fail h1 {
     text-align: center;
+    font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
     color: red;
+    margin: 10px;
 }
 
 #succes h1 {
     text-align: center;
+    font-weight: bold;
     text-transform: uppercase;
     font-size: 0.9em;
     color: green;
+    margin: 10px;
 }

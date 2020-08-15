@@ -14,7 +14,6 @@ create table note (
   note_content                  varchar(255),
   date_                         varchar(255),
   user_user_                    bigint,
-  constraint uq_note_note_name unique (note_name),
   constraint pk_note primary key (note_id)
 );
 

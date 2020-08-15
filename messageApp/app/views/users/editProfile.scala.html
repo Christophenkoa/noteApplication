@@ -10,13 +10,13 @@
 
 @layout("display selected note") {
 
-    <div id="note_form">
+    <div class="loginContainer">
 
-        <h3 id="profile">Update @user.getUserName() profile</h3>
-
-        <h5>You are allowed to modify only your password</h5>
+        <div class="centrer text-center">
+            <h3 id="profile">Update <b>@user.getUserName()</b> profile</h3>
+            <h5 class="my-3">You are allowed to modify only your password</h5>
+        </div>
         
-
         @helper.form(action = routes.HomeController.saveProfile() , 'id -> "edit_profile_form") {
         
             @helper.CSRF.formField

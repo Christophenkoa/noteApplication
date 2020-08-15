@@ -184,6 +184,14 @@ public class HomeController extends Controller {
         //find the user who want to save a note
         User_ user = findUser(request);
 
+        //check if that note title exists in user note list
+        for(int i=0; i < user.getNotes().size(); i++) {
+            Note noteElt = user.getNotes().get(i);
+            if(noteElt.getNoteName().equals(note.getNoteName())) {
+                return redirect(controllers.routes.HomeController.userSpace()).flashing("danger", "WARNING : This title is already use");
+            }
+        }
+        
         //add the note in the note list of that user 
         user.getNotes().add(note);
 

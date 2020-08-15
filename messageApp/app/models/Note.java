@@ -12,10 +12,10 @@ import javax.inject.Inject;
 
 @Entity
 public class Note extends Model {
+    @Column(unique=true)
     @Id
     private Long noteID;
     
-    @Column(unique=true)
     @Constraints.Required
     private String noteName;
 
